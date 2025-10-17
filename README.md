@@ -11,8 +11,16 @@ Installer les dépendances PHP avec Composer:
 ```json
 composer install
 ```
+
+Modifier la connexion a la base de donnees **si besoin** dans le fichier .env (verifier notement le port) 
+
+Creer la Base de Donnees :
+```json
+php bin/console doctrine:database:create
+```
+
+Importer le fichier sql
   
-Modifier la connexion a la base de donnees **si besoin** dans le fichier .env (verifier notement le port)  
 
 ```json
 synfony serve:start
