@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\EmpruntRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Livre;
+use App\Entity\Utilisateur;
 
 #[ORM\Entity(repositoryClass: EmpruntRepository::class)]
 class Emprunt
@@ -14,10 +16,10 @@ class Emprunt
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'emprunts')]
-    private ?livre $livre = null;
+    private ?Livre $livre = null;
 
     #[ORM\ManyToOne(inversedBy: 'emprunt')]
-    private ?utilisateur $utilisateur = null;
+    private ?Utilisateur $utilisateur = null;
 
     #[ORM\Column]
     private ?\DateTime $dateEmprunt = null;
@@ -33,24 +35,24 @@ class Emprunt
         return $this->id;
     }
 
-    public function getLivre(): ?livre
+    public function getLivre(): ?Livre
     {
         return $this->livre;
     }
 
-    public function setLivre(?livre $livre): static
+    public function setLivre(?Livre $livre): static
     {
         $this->livre = $livre;
 
         return $this;
     }
 
-    public function getUtilisateur(): ?utilisateur
+    public function getUtilisateur(): ?Utilisateur
     {
         return $this->utilisateur;
     }
 
-    public function setUtilisateur(?utilisateur $utilisateur): static
+    public function setUtilisateur(?Utilisateur $utilisateur): static
     {
         $this->utilisateur = $utilisateur;
 

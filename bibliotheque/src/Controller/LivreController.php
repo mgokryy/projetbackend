@@ -18,21 +18,18 @@ class LivreController extends AbstractController
     {
         $content = json_decode($request->getContent(), true);
 
-        // Récupérer l'auteur
         $auteurId = $content['idAuteur'] ?? null;
         $auteur = $entityManager->getRepository(Auteur::class)->find($auteurId);
         if (!$auteur) {
             return new Response('Auteur non trouvé', 404);
         }
 
-        // Récupérer la catégorie
         $categorieId = $content['categorie'] ?? null;
         $categorie = $entityManager->getRepository(Categorie::class)->find($categorieId);
         if (!$categorie) {
             return new Response('Catégorie non trouvée', 404);
         }
 
-        // Créer le livre
         $livre = new Livre();
         $livre->setTitre($content['titre']);
         $livre->setDatePublication(new \DateTime($content['datePublication']));
@@ -47,8 +44,6 @@ class LivreController extends AbstractController
     }
 
 
-
-    // route pour recu un livre par son id
     #[Route('/livre/{id}', name: 'get_livre', methods: ['GET'])]
     public function getLivre(int $id, EntityManagerInterface $entityManager): Response
     {
@@ -71,10 +66,6 @@ class LivreController extends AbstractController
     }
 
 
-
-
-
-    //route pour recup tous les livres
     #[Route('/livres', name: 'get_all_livres', methods: ['GET'])]
     public function getAllLivres(EntityManagerInterface $entityManager): Response
     {
@@ -93,7 +84,7 @@ class LivreController extends AbstractController
         return $this->json($data);
     }
 
-    // route pour modifier un livre
+    
     #[Route('/livre/edit/{id}', name: 'edit_livre', methods: ['PUT'])]
     public function editLivre(int $id, Request $request, EntityManagerInterface $entityManagerInterface): Response
     {
@@ -119,8 +110,9 @@ class LivreController extends AbstractController
 
         return new Response('Livre mis à jour avec succès');
     }
-    // route pour supprimer un livre
-    #[Route('/livre/{id}/delete', name: 'delete_livre', methods: ['DELETE'])]
+   
+    
+    #[Route('/livre/delete/{id}', name: 'delete_livre', methods: ['DELETE'])]
     public function deleteLivre(int $id, EntityManagerInterface $entityManagerInterface): Response
     {
         $livre = $entityManagerInterface->getRepository(Livre::class)->find($id);
